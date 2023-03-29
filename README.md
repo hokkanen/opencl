@@ -32,7 +32,7 @@ export CPATH=$CPATH:$(pwd)/opencl/OpenCL-CLHPP/include
 
 ### 4. Compile examples with 
 ```
-dpcpp cl_svm.cpp -lOpenCL
+dpcpp cl_devices.cpp -lOpenCL 
 ```
 
 ### 5. Run examples with
