@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     int sum = 0;
 
     // Create buffer for sum
-    cl::Buffer buffer(context, CL_MEM_WRITE_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(int), &sum);
+    cl::Buffer buffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(int), &sum);
 
     // Pass arguments to device kernel
     kernel_reduce.setArg(0, buffer); // pass buffer to device
