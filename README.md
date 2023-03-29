@@ -1,8 +1,8 @@
-# Notes for compiling and running OpenCL code on Intel CPUs
+## Notes for compiling and running OpenCL code on Intel CPUs
 
-## 1. Install Intel OneApi basekit
+### 1. Install Intel OneApi basekit
 
-## 2. Set up environment by running
+### 2. Set up environment by running
 ```
 source /opt/intel/oneapi/setvars.sh
 ```
@@ -24,12 +24,16 @@ and
 /opt/intel/oneapi/compiler/latest/linux/compiler/lib/intel64_lin/
 ```
 
-## 3. Clone repo and OpenCL-CLHPP headers for OpenCL C++ API, then update CPATH
+### 3. Clone repo and OpenCL-CLHPP headers for OpenCL C++ API, then update CPATH
+```
 git clone --recurse-submodules https://github.com/hokkanen/opencl.git
+```
+```
 export CPATH=$CPATH:$(pwd)/opencl/OpenCL-CLHPP/include
+```
 
-## 4. Compile examples with 
+### 4. Compile examples with 
 dpcpp cl_svm.cpp -lOpenCL
 
-## 5. Run examples with
+### 5. Run examples with
 ./a.out
