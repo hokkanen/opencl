@@ -27,13 +27,15 @@ and
 ### 3. Clone repo and OpenCL-CLHPP headers for OpenCL C++ API, then update CPATH
 ```
 git clone --recurse-submodules https://github.com/hokkanen/opencl.git
-```
-```
 export CPATH=$CPATH:$(pwd)/opencl/OpenCL-CLHPP/include
 ```
 
 ### 4. Compile examples with 
+```
 dpcpp cl_svm.cpp -lOpenCL
+```
 
 ### 5. Run examples with
+```
 ./a.out
+```
