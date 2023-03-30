@@ -40,6 +40,9 @@ int main(int argc, char* argv[]) {
   cl::Context context(device);
   cl::CommandQueue queue(context, device);
 
+  // This is needed to avoid bug in SVMAllocator::allocate() with coarse grain buf
+  cl::CommandQueue::setDefault(queue);
+
   // Print device name
   std::string name;
   device.getInfo(CL_DEVICE_NAME, &name);
@@ -57,7 +60,6 @@ int main(int argc, char* argv[]) {
     // Create SVM buffer for sum
     cl::SVMAllocator<int, cl::SVMTraitReadWrite<>> svmAlloc(context);
     int *sum = svmAlloc.allocate(1);
-    //int *sum = (int*)clSVMAlloc(context(), CL_MEM_READ_WRITE, sizeof(int), 0);
 
     // Pass arguments to device kernel
     kernel_reduce.setArg(0, sum); // pass SVM pointer to device
@@ -78,7 +80,6 @@ int main(int argc, char* argv[]) {
 
     // Free SVM buffer
     svmAlloc.deallocate(sum, 1);
-    //clSVMFree(context(), sum);
   }
 
   return 0;

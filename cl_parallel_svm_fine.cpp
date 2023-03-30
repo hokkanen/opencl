@@ -37,9 +37,6 @@ int main(int argc, char *argv[]) {
     int *a = svmAlloc.allocate(n);
     int *b = svmAlloc.allocate(n);
     int *c = svmAlloc.allocate(n);
-    //int *a = (int*)clSVMAlloc(context(), CL_MEM_READ_ONLY | CL_MEM_SVM_FINE_GRAIN_BUFFER, n * sizeof(int), 0);
-    //int *b = (int*)clSVMAlloc(context(), CL_MEM_READ_ONLY | CL_MEM_SVM_FINE_GRAIN_BUFFER, n * sizeof(int), 0);
-    //int *c = (int*)clSVMAlloc(context(), CL_MEM_WRITE_ONLY | CL_MEM_SVM_FINE_GRAIN_BUFFER, n * sizeof(int), 0);
   
     // Pass arguments to device kernel
     kernel_dot.setArg(0, a);
@@ -66,9 +63,6 @@ int main(int argc, char *argv[]) {
     svmAlloc.deallocate(a, n);
     svmAlloc.deallocate(b, n);
     svmAlloc.deallocate(c, n);
-    //clSVMFree(context(), a);
-    //clSVMFree(context(), b);
-    //clSVMFree(context(), c);
   }
 
   return 0;

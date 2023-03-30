@@ -18,6 +18,9 @@ int main(int argc, char *argv[]) {
   cl::Context context(device);
   cl::CommandQueue queue(context, device);
 
+  // This is needed to avoid bug in SVMAllocator::allocate() with coarse grain buf
+  cl::CommandQueue::setDefault(queue);
+
   // Print device name
   std::string name;
   device.getInfo(CL_DEVICE_NAME, &name);
@@ -39,9 +42,6 @@ int main(int argc, char *argv[]) {
 
     cl::SVMAllocator<int, cl::SVMTraitWriteOnly<>> svmAllocWrite(context);
     int *c = svmAllocWrite.allocate(n);
-    //int *a = (int*)clSVMAlloc(context(), CL_MEM_READ_ONLY, n * sizeof(int), 0);
-    //int *b = (int*)clSVMAlloc(context(), CL_MEM_READ_ONLY, n * sizeof(int), 0);
-    //int *c = (int*)clSVMAlloc(context(), CL_MEM_WRITE_ONLY, n * sizeof(int), 0);
   
     // Pass arguments to device kernel
     kernel_dot.setArg(0, a);
@@ -71,9 +71,6 @@ int main(int argc, char *argv[]) {
     svmAllocRead.deallocate(a, n);
     svmAllocRead.deallocate(b, n);
     svmAllocRead.deallocate(c, n);
-    //clSVMFree(context(), a);
-    //clSVMFree(context(), b);
-    //clSVMFree(context(), c);
   }
 
   return 0;

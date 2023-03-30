@@ -56,7 +56,6 @@ int main(int argc, char* argv[]) {
     // Create SVM buffer for sum
     cl::SVMAllocator<int, cl::SVMTraitFine<>> svmAlloc(context);
     int *sum = svmAlloc.allocate(1);
-    //int *sum = (int*)clSVMAlloc(context(), CL_MEM_READ_WRITE | CL_MEM_SVM_FINE_GRAIN_BUFFER, sizeof(int), 0);
 
     // Pass arguments to device kernel
     kernel_reduce.setArg(0, sum); // pass SVM pointer to device
@@ -76,7 +75,6 @@ int main(int argc, char* argv[]) {
 
     // Free SVM buffer
     svmAlloc.deallocate(sum, 1);
-    //clSVMFree(context(), sum);
   }
 
   return 0;
