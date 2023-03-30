@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
     unsigned n = 10;
 
     // Create SVM buffer for sum
-    cl::SVMAllocator<int, cl::SVMTraitFine<>> svmAlloc(context);
+    cl::SVMAllocator<int, cl::SVMTraitAtomic<>> svmAlloc(context);
     int *sum = svmAlloc.allocate(1);
 
     // Pass arguments to device kernel
