@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
   cl::Kernel kernel_dot(program, "dot");
 
   {
+    // Set problem dimensions
     unsigned n = 5;
   
     // Create SVM buffer objects on host side 

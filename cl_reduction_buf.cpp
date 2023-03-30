@@ -50,6 +50,7 @@ int main(int argc, char* argv[]) {
   cl::Kernel kernel_reduce(program, "reduce");
 
   {
+    // Set problem dimensions
     unsigned n = 10;
 
     // Initialize sum variable
