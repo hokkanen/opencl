@@ -32,8 +32,13 @@ export CPATH=$CPATH:$(pwd)/opencl/OpenCL-CLHPP/include
 
 ### 4. Compile examples with 
 ```
-dpcpp cl_devices.cpp -lOpenCL 
+dpcpp cl_devices.c -lOpenCL 
 ```
+Alternatively, if you have CUDA installed, OpenCL code can easily be compiled with nvcc by
+```
+nvcc -arch=sm_80 cl_devices.c -lOpenCL 
+```
+where `-arch=sm_80` is the target architecture (NVIDIA A100 GPU).
 
 ### 5. Run examples with
 ```

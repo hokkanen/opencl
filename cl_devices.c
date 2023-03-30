@@ -9,7 +9,7 @@
 
 int main() {
 
-    int i, j;
+    int i, j, num_dev = 0;
     char* value;
     size_t valueSize;
     cl_uint platformCount;
@@ -34,46 +34,49 @@ int main() {
         // for each device print critical attributes
         for (j = 0; j < deviceCount; j++) {
 
+            // the global device number
+            num_dev += 1;
+
             // print device name
             clGetDeviceInfo(devices[j], CL_DEVICE_NAME, 0, NULL, &valueSize);
             value = (char*) malloc(valueSize);
             clGetDeviceInfo(devices[j], CL_DEVICE_NAME, valueSize, value, NULL);
-            printf("%d. Device: %s\n", j+1, value);
+            printf("%d. Device: %s\n", num_dev, value);
             free(value);
 
             // print hardware device version
             clGetDeviceInfo(devices[j], CL_DEVICE_VERSION, 0, NULL, &valueSize);
             value = (char*) malloc(valueSize);
             clGetDeviceInfo(devices[j], CL_DEVICE_VERSION, valueSize, value, NULL);
-            printf(" %d.%d Hardware version: %s\n", j+1, 1, value);
+            printf(" %d.%d Hardware version: %s\n", num_dev, 1, value);
             free(value);
 
             // print software driver version
             clGetDeviceInfo(devices[j], CL_DRIVER_VERSION, 0, NULL, &valueSize);
             value = (char*) malloc(valueSize);
             clGetDeviceInfo(devices[j], CL_DRIVER_VERSION, valueSize, value, NULL);
-            printf(" %d.%d Software version: %s\n", j+1, 2, value);
+            printf(" %d.%d Software version: %s\n", num_dev, 2, value);
             free(value);
 
             // print c version supported by compiler for device
             clGetDeviceInfo(devices[j], CL_DEVICE_OPENCL_C_VERSION, 0, NULL, &valueSize);
             value = (char*) malloc(valueSize);
             clGetDeviceInfo(devices[j], CL_DEVICE_OPENCL_C_VERSION, valueSize, value, NULL);
-            printf(" %d.%d OpenCL C version: %s\n", j+1, 3, value);
+            printf(" %d.%d OpenCL C version: %s\n", num_dev, 3, value);
             free(value);
 
             // print parallel compute units
             clGetDeviceInfo(devices[j], CL_DEVICE_MAX_COMPUTE_UNITS,
                     sizeof(maxComputeUnits), &maxComputeUnits, NULL);
-            printf(" %d.%d Parallel compute units: %d\n", j+1, 4, maxComputeUnits);
+            printf(" %d.%d Parallel compute units: %d\n", num_dev, 4, maxComputeUnits);
 
             // Query and print the SVM capabilities of the device
             clGetDeviceInfo(devices[j], CL_DEVICE_SVM_CAPABILITIES, sizeof(svm_caps), &svm_caps, NULL);
-            printf(" %d.%d SVM capabilities:\n", j+1, 5);
-            if (svm_caps & CL_DEVICE_SVM_COARSE_GRAIN_BUFFER) printf("  -Coarse-grain buffer\n");
-            if (svm_caps & CL_DEVICE_SVM_FINE_GRAIN_BUFFER) printf("  -Fine-grain buffer\n");
-            if (svm_caps & CL_DEVICE_SVM_FINE_GRAIN_SYSTEM) printf("  -Fine-grain system\n");
-            if (svm_caps & CL_DEVICE_SVM_ATOMICS) printf("  -Atomics\n");
+            printf(" %d.%d SVM capabilities:\n", num_dev, 5);
+            if (svm_caps & CL_DEVICE_SVM_COARSE_GRAIN_BUFFER) printf("     -Coarse-grain buffer\n");
+            if (svm_caps & CL_DEVICE_SVM_FINE_GRAIN_BUFFER) printf("     -Fine-grain buffer\n");
+            if (svm_caps & CL_DEVICE_SVM_FINE_GRAIN_SYSTEM) printf("     -Fine-grain system\n");
+            if (svm_caps & CL_DEVICE_SVM_ATOMICS) printf("     -Atomics\n");
         }
 
         free(devices);
